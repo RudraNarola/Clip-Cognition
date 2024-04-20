@@ -1,5 +1,5 @@
 "use client";
-// import "./App.css";
+
 import DropFileInput from "../../components/drop-file-input/DropFileInput";
 import UploadButton from "../../components/upload-button/UploadButton";
 import React, { useState } from "react";
