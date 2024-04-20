@@ -6,10 +6,16 @@ import whisper # type: ignore
 from moviepy.editor import AudioFileClip # type: ignore
 from moviepy.video.VideoClip import ImageClip  # type: ignore
 import google.generativeai as genai # type: ignore
+from pymongo import MongoClient # type: ignore
 import os
+import json
 
 app = Flask(__name__)
+client = MongoClient('mongodb+srv://lightningthunder2494:IQB9xZiN5l5jCztp@cluster0.havsrie.mongodb.net/')
+db = client['test']
+
 CORS(app)
+
 
 
 
@@ -17,6 +23,12 @@ CORS(app)
 def getTranscript():
     data = request.json
     video_url = data['url']
+    title = data['title']
+    description = data['description']
+
+    # create video record in database
+    createVideo(title, description, video_url)
+
 
     filename = "downloaded_video.mp4"
     response = requests.get(video_url)
@@ -85,13 +97,13 @@ def getTranscript():
     with open('your_file.txt', 'w',encoding="utf-8", errors='ignore') as textFile:
         textFile.write(final_text)
 
-    makeQuizes(final_text)
+    makeQuizes(final_text, video_url)
 
     success_message = {'message': 'Operation was successful'}
     return jsonify(success_message), 200
 
 
-def makeQuizes(text):
+def makeQuizes(text,video_url):
     # Set up the API key
     genai.configure(api_key="AIzaSyBy6SBMx6wnlwUUsVp0IkcKP_zkIt1BNnU")
 
@@ -136,10 +148,38 @@ def makeQuizes(text):
     print(convo.last.text)
     textFile = convo.last.text.strip()
     textFile = convo.last.text[8:-5]
+    # quizes = json.loads(textFile)
+    # print(quizes)
     with open('quiz.json', 'w') as jsonFile:
         jsonFile.write(textFile)
+    createQuizes( video_url)
+
+def createVideo(title, description, video_url):
+    collection = db['videos']
+    result = collection.insert_one(
+        {
+            "title": title,
+            "description": description,
+            "video_url": video_url
+        }
+    )
+    print("Video created successfully", result)
+    return result
 
 
+def createQuizes( video_url):
+    collection = db['quizes']
+    with open('quiz.json') as f:
+        quizes = json.load(f)
+
+    result = collection.insert_one({
+            "quizes": quizes,
+            "video_url": video_url,
+            "participants": [],
+        })
+    print("Quiz created successfully", result)
+    return result
+    
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

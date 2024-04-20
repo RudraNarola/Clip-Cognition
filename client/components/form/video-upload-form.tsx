@@ -30,14 +30,18 @@ interface DocData {
 const VideoUploadForm = () => {
   const [file, setFile] = useState<File | null>(null);
 
-  const sendUrl = async (url: string) => {
+  const sendUrl = async (url: string, title: string, description: string) => {
     try {
       const response = await fetch("http://localhost:5000/getTranscript", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ url: url }),
+        body: JSON.stringify({
+          title: title,
+          description: description,
+          url: url,
+        }),
       });
       const data = await response.json();
       console.log(data);
@@ -67,29 +71,11 @@ const VideoUploadForm = () => {
       });
   };
 
-  const handleClick = () => {
+  const handleClick = (values: z.infer<typeof VideoValidation>) => {
     if (file === null) return;
 
     const fileRef = ref(storage, `videos/${file.name}`);
     const uploadTask = uploadBytesResumable(fileRef, file);
-
-    // uploadTask.on(
-    //   "state_changed",
-    //   (snapshot) => {
-    //     let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    //     console.log(progress);
-    //   },
-    //   (error) => {
-    //     console.log("Error occurred while uploading video: ", error);
-    //   },
-    //   () => {
-    //     console.log("Video uploaded successfully!!");
-    //     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-    //       uploadToDatabase(downloadURL);
-    //       console.log(downloadURL);
-    //     });
-    //   }
-    // );
 
     uploadTask.on(
       "state_changed",
@@ -103,7 +89,7 @@ const VideoUploadForm = () => {
       async () => {
         console.log("success!!");
         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-        sendUrl(downloadURL);
+        sendUrl(downloadURL, values.title, values.description);
 
         uploadToDatabase(downloadURL);
         console.log("AEFAEFAE", downloadURL);
@@ -124,7 +110,7 @@ const VideoUploadForm = () => {
     <Form {...form}>
       <form
         className="flex flex-col justify-start gap-6"
-        onSubmit={form.handleSubmit(() => handleClick())}
+        onSubmit={form.handleSubmit(handleClick)}
       >
         <FormField
           control={form.control}

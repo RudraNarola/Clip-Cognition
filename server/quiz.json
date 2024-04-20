@@ -1,62 +1,62 @@
 [
   {
     "segment": 1,
-    "question": "What is Python's current status in terms of popularity and growth?",
+    "question": "What is Python's primary advantage according to the video?",
     "options": [
-      "One of many popular languages",
-      "The world's fastest-growing and most popular language",
-      "A niche language for specific tasks",
-      "Losing popularity to newer languages"
+      "Complex problem-solving with minimal code",
+      "Memory management capabilities",
+      "Platform-specific applications",
+      "Small community and limited libraries"
     ],
-    "answer": "The world's fastest-growing and most popular language",
-    "explanation": "The video clearly states that Python is currently the world's fastest-growing and most popular programming language, used by people from various disciplines."
+    "answer": "A",
+    "explanation": "The video emphasizes Python's ability to solve complex problems with fewer lines of code compared to languages like C# and JavaScript."
   },
   {
     "segment": 2,
-    "question": "Which of the following is NOT a typical use case for Python?",
+    "question": "Who can benefit from using Python, according to the speaker?",
     "options": [
-      "Data analysis and visualization",
-      "Artificial intelligence and machine learning",
-      "Building complex 3D video games",
-      "Automating repetitive tasks"
+      "Only software engineers",
+      "Individuals from various disciplines",
+      "Exclusively data scientists",
+      "Primarily accountants and network engineers"
     ],
-    "answer": "Building complex 3D video games",
-    "explanation": "While Python can be used for game development, it's not typically used for complex 3D games. The other options are all common applications of Python."
+    "answer": "B",
+    "explanation": "The video highlights Python's versatility, mentioning its use by mathematicians, data analysts, scientists, accountants, network engineers, and even kids due to its beginner-friendly nature."
   },
   {
     "segment": 3,
-    "question": "How does Python compare to other programming languages in terms of code efficiency?",
+    "question": "Which statement about Python's capabilities is accurate?",
     "options": [
-      "Requires significantly more code",
-      "Requires slightly more code",
-      "Can solve problems with fewer lines of code",
-      "Has similar code efficiency"
+      "It's strictly for web development",
+      "It's solely for data analysis",
+      "It's limited to mobile app creation",
+      "It offers a wide range of applications"
     ],
-    "answer": "Can solve problems with fewer lines of code",
-    "explanation": "The video emphasizes Python's concise syntax, allowing complex problems to be solved with less code compared to languages like C# or JavaScript."
+    "answer": "D",
+    "explanation": "The video showcases Python's diverse applications, including web, mobile, and desktop development, data analysis, automation, machine learning, and even hacking."
   },
   {
     "segment": 4,
-    "question": "What are some key advantages of Python?",
+    "question": "What makes Python stand out from other programming languages?",
     "options": [
-      "Low-level control and complex syntax",
-      "Limited community and resources",
-      "Platform-dependent and small ecosystem",
-      "High-level, cross-platform, with a large community and ecosystem"
+      "Its complexity and steep learning curve",
+      "Its platform dependency and limited libraries",
+      "Its simplicity, elegance, and large community",
+      "Its focus on low-level system tasks"
     ],
-    "answer": "High-level, cross-platform, with a large community and ecosystem",
-    "explanation": "The video highlights Python's advantages: being high-level (easier to learn), cross-platform (works on different operating systems), having a large supportive community, and a vast ecosystem of libraries and tools."
+    "answer": "C",
+    "explanation": "The video contrasts Python's simplicity and elegance with other languages, mentioning its large community, extensive libraries, and beginner-friendly syntax."
   },
   {
     "segment": 5,
-    "question": "Why is Python particularly attractive for job seekers?",
+    "question": "What is a significant reason for Python's popularity among employers?",
     "options": [
-      "Limited job opportunities",
-      "Low average salary",
-      "High demand from employers",
-      "Steep learning curve"
+      "Its niche applications and limited user base",
+      "Its high learning curve and complexity",
+      "Its association with low-paying jobs",
+      "Its versatility and large talent pool"
     ],
-    "answer": "High demand from employers",
-    "explanation": "The video mentions that Python is the number one language employers seek, offering numerous job opportunities and a high average salary for Python developers." 
+    "answer": "D",
+    "explanation": "The video states that Python is the number one language employers seek due to its versatility and the abundance of skilled Python developers." 
   }
 ]
