@@ -12,7 +12,7 @@ export default async function Header() {
           {userId ? (
             <div className="flex gap-4 items-center">
               <Link href="/dashboard">Dashboard</Link>
-              {/* <Link href='/upload'>Upload</Link> */}
+              <Link href='../upload'>Upload</Link>
               <UserButton afterSignOutUrl="/" />
             </div>
           ) : (
