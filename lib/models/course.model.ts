@@ -14,7 +14,7 @@ const courseSchema = new mongoose.Schema({
       ref: "Video",
     },
   ],
-  participants: [
+  enrolledUser: [
     {
       userId: {
         type: mongoose.Schema.Types.ObjectId,
