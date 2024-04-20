@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
-import VideoPlayer from "@/components/video-player";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 
-const HomePage: React.FC = () => {
+const HomePage = () => {
   return (
     <>
       <section className="container mt-6 text-white font-custom">

@@ -30,6 +30,22 @@ interface DocData {
 const VideoUploadForm = () => {
   const [file, setFile] = useState<File | null>(null);
 
+  const sendUrl = async (url: string) => {
+    try {
+      const response = await fetch("http://localhost:5000/getTranscript", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: url }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log("Failed to send URL to server", error);
+    }
+  };
+
   const onFileChange = (files: File[]) => {
     const currentFile = files[0];
     setFile(currentFile);
@@ -57,6 +73,24 @@ const VideoUploadForm = () => {
     const fileRef = ref(storage, `videos/${file.name}`);
     const uploadTask = uploadBytesResumable(fileRef, file);
 
+    // uploadTask.on(
+    //   "state_changed",
+    //   (snapshot) => {
+    //     let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //     console.log(progress);
+    //   },
+    //   (error) => {
+    //     console.log("Error occurred while uploading video: ", error);
+    //   },
+    //   () => {
+    //     console.log("Video uploaded successfully!!");
+    //     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+    //       uploadToDatabase(downloadURL);
+    //       console.log(downloadURL);
+    //     });
+    //   }
+    // );
+
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -64,14 +98,15 @@ const VideoUploadForm = () => {
         console.log(progress);
       },
       (error) => {
-        console.log("Error occurred while uploading video: ", error);
+        console.log("error uploading file", error);
       },
-      () => {
-        console.log("Video uploaded successfully!!");
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          uploadToDatabase(downloadURL);
-          console.log(downloadURL);
-        });
+      async () => {
+        console.log("success!!");
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        sendUrl(downloadURL);
+
+        uploadToDatabase(downloadURL);
+        console.log("AEFAEFAE", downloadURL);
       }
     );
   };
