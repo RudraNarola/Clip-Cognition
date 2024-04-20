@@ -1,4 +1,8 @@
 "use client";
+<<<<<<< HEAD
+=======
+
+>>>>>>> ed6c01fe289c0c2a44f862637f06ce34d984a78d
 import DropFileInput from "../../components/drop-file-input/DropFileInput";
 import UploadButton from "../../components/upload-button/UploadButton";
 import React, { useState } from "react";
