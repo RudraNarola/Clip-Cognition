@@ -1,5 +1,9 @@
 import firebase from 'firebase/compat/app'; // Import the compat version for now
 import 'firebase/compat/storage'; // Import the compat version for now
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore ,collection } from 'firebase/firestore'
+// import { collection } from 'firebase/firestore/lite';
 
 
 const firebaseConfig = {
@@ -23,5 +27,10 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+export const db = getFirestore(app)
+export const notesCollection = collection(db, "clipcognition")
 
 export const storage = firebase.storage()
