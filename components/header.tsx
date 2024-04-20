@@ -42,13 +42,15 @@ export default async function Header() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-white text-lg">{user?.fullName}</span>
-                <UserButton afterSignOutUrl="/"> {user?.fullName}</UserButton>
+                <UserButton afterSignOutUrl="/" />
               </div>
             </div>
           ) : (
             <div className="flex gap-4 items-center">
               <Link href="/sign-up">
-                <Button>Sign Up</Button>
+                <Button variant={"primary"} size={"sm"}>
+                  Sign Up
+                </Button>
               </Link>
             </div>
           )}

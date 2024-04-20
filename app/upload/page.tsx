@@ -1,11 +1,13 @@
 "use client";
-// import "./App.css";
 import DropFileInput from "../../components/drop-file-input/DropFileInput";
 import UploadButton from "../../components/upload-button/UploadButton";
 import React, { useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage, db } from "../../config/firebase";
 import { doc, setDoc } from "firebase/firestore";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import VideoUploadForm from "@/components/form/video-upload-form";
 
 interface DocData {
   mostRecentUploadURL: string;
@@ -51,7 +53,8 @@ const Page = () => {
       (error) => {
         console.log("error :(");
       },
-      () => {``
+      () => {
+        ``;
         console.log("success!!");
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           uploadToDatabase(downloadURL);
@@ -61,38 +64,14 @@ const Page = () => {
     );
   };
   return (
-   
-    <div className=" mt-6 bg-f5f8ff font-montserrat font-normal text-2f2d2f leading-6 flex justify-center pt-100 h-100vh py-100 container">
-
-   
-
-    <div className="box bg-white p-30 rounded-lg shadow-box-shadow w-full">
-        <h2 className="m-4 header mb-30 text-center font-mono font-medium"> Drop files</h2>
-        <div className="text-center  p-4 flex flex-col items-center">
-        <DropFileInput onFileChange={(files) => onFileChange(files)} />
-        </div>
-       
-        <br></br>
-        <div className="p-7">
-        <UploadButton onClick={() => handleClick()}></UploadButton>
-        </div>
-       
+    <div className="bg-[#121417] container flex flex-col items-center w-[80%] pt-3 text-white pb-8 mt-4 rounded-md">
+      <div className="text-3xl font-bold font-custom pt-2 ">
+        Make Your Own Course
+      </div>
+      <section className="px-8 py-4 rounded-md w-[70%]">
+        <VideoUploadForm />
+      </section>
     </div>
-    </div>
-
-    // <div className="box">
-    //   <h2 className="header">React drop files input</h2>
-    //   <DropFileInput onFileChange={(files) => onFileChange(files)} />
-    //   <br></br>
-    //   <UploadButton onClick={() => handleClick()}></UploadButton>
-    // </div>
-
-    // <div className="bg-f5f8ff p-8 rounded-lg shadow-md">
-    // <h2 className="mb-8 text-center">React drop files input</h2>
-    // <DropFileInput onFileChange={(files) => onFileChange(files)} />
- 
-    // <UploadButton  onClick={() => handleClick()}></UploadButton>
-    // </div>
   );
 };
 
