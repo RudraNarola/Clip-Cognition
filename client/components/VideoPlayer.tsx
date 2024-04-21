@@ -12,7 +12,7 @@ const VideoPlayer = ({
 }) => {
   return (
     <div className="bg-gray-900 min-h-screen flex justify-center items-center">
-      <div className="max-w-3xl w-full p-8 bg-gray-800 rounded-lg shadow-lg">
+      <div className="max-w-4xl w-full p-8 bg-gray-800 rounded-lg shadow-lg">
         <video controls className="w-full rounded-lg">
           <source src={url} type="video/mp4" />
           Your browser does not support the video tag.

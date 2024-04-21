@@ -165,7 +165,7 @@ const VideoUploadForm = () => {
           <DropFileInput onFileChange={(files) => onFileChange(files)} />
         </div>
         {/* </div> */}
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" disabled={isPending || progress == 100}>
           Upload Video{" "}
           {file && progress !== 0 ? `${progress.toFixed(1)} %` : null}
         </Button>

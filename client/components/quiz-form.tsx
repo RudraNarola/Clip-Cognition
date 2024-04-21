@@ -15,6 +15,7 @@ const QuizForm = ({ quizData }: { quizData: any }) => {
       correctAnswerIndex: quiz.answer,
       explaination: quiz.explanation,
       difficulty: quiz.difficulty,
+      segment: quiz.segment,
     };
   });
 
@@ -93,6 +94,7 @@ const QuizForm = ({ quizData }: { quizData: any }) => {
           correctAnswer: quizData[i].options[quizData[i].correctAnswerIndex],
           explanation: quizData[i].explaination,
           difficulty: quizData[i].difficulty,
+          segment: quizData[i].segment,
         });
       } else {
         correctAnswers.push({

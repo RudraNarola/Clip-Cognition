@@ -1,34 +1,3 @@
-// import { QuizForm } from "@/components/quiz-form";
-// import { getQuizById } from "@/lib/services/quiz.services";
-
-// const Page = async ({ params }: { params: { id: string } }) => {
-//   const quizRecord = await getQuizById(params.id);
-//   console.log("quizRecord", quizRecord);
-
-//   return <QuizForm quizRecord={quizRecord.questions} />;
-// };
-
-// export default Page;
-
-// {
-//   "questions": [
-//     {
-//       "question": "What is the capital of India?",
-//       "options": [
-//         "New Delhi",
-//         "Mumbai",
-//         "Chennai",
-//         "Kolkata"
-//       ],
-//       "answer": "0",
-//       "explanation": "New Delhi is the capital of India",
-//       difficulty: "easy"
-//       segment
-//     }
-//  ]
-
-// components/QuizForm.tsx
-
 "use client";
 import QuizForm from "@/components/quiz-form";
 import { useEffect, useState } from "react";

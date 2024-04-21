@@ -6,6 +6,7 @@ interface Answer {
   correctAnswer: string;
   explanation: string;
   difficulty: string;
+  segment: number;
 }
 
 interface ReportCardProps {
@@ -13,6 +14,24 @@ interface ReportCardProps {
   wrongAnswers: number;
   incorrectAnswers: Answer[];
   correctOptions: Answer[];
+}
+
+function formatTime(seconds) {
+  // Calculate hours, minutes, and remaining seconds
+  // let hours = Math.floor(seconds / 3600);
+  let minutes = Math.floor((seconds % 3600) / 60);
+  let remainingSeconds = seconds % 60;
+
+  // Format the time components with leading zeros if needed
+  // let formattedHours = String(hours).padStart(2, "0");
+  let formattedMinutes = String(minutes).padStart(2, "0");
+  let formattedSeconds = String(remainingSeconds).padStart(2, "0");
+
+  // Combine the formatted components into HH:MM:SS format
+  // let formattedTime = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+  let formattedTime = `${formattedMinutes}:${formattedSeconds}`;
+
+  return formattedTime;
 }
 
 const ReportCard: React.FC<ReportCardProps> = ({
@@ -54,6 +73,13 @@ const ReportCard: React.FC<ReportCardProps> = ({
               <span className="font-bold">Explanation:</span>{" "}
               {answer.explanation}
               <br />
+              <div>
+                <span className="font-bold">Time Segment:</span>{" "}
+                <span className="text-gray-600 font-semibold">
+                  {formatTime(answer.segment * 30)} -{" "}
+                  {formatTime((answer.segment + 1) * 30)}
+                </span>
+              </div>
               <span className="font-bold">Difficulty:</span> {answer.difficulty}
             </div>
           ))}

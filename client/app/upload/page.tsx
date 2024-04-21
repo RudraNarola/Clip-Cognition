@@ -1,19 +1,4 @@
-"use client";
-import DropFileInput from "../../components/drop-file-input/DropFileInput";
-import UploadButton from "../../components/upload-button/UploadButton";
-import React, { useEffect, useState } from "react";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { storage, db } from "../../config/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import VideoUploadForm from "@/components/form/video-upload-form";
-import { set } from "mongoose";
-
-interface DocData {
-  mostRecentUploadURL: string;
-  username: string;
-}
 
 const Page = () => {
   return (

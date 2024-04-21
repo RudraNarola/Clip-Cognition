@@ -9,6 +9,7 @@ import google.generativeai as genai # type: ignore
 from pymongo import MongoClient # type: ignore
 import os
 import json
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 client = MongoClient('mongodb+srv://lightningthunder2494:IQB9xZiN5l5jCztp@cluster0.havsrie.mongodb.net/')
@@ -16,8 +17,27 @@ db = client['test']
 
 CORS(app)
 
+# /quiz/${params.id}
+@app.get('/api/<id>')
+def getQuiz(id):
 
+    collection = db['quizzes']
+    object_id = ObjectId(id)
+    result = collection.find_one({'_id': object_id})
 
+# Check if a record was found
+    if result:
+    # Convert ObjectId to string before serializing to JSON
+        result['_id'] = str(result['_id'])
+
+    # Serialize the result to JSON
+    json_data = json.dumps(result)
+    print(json_data)
+    
+
+    return json.dumps(json_data), 200
+
+@app.get('/api/score')
 
 @app.route('/getTranscript', methods=['POST'])
 def getTranscript():
@@ -139,7 +159,7 @@ def makeQuizes(text,title,description,video_url):
     convo = model.start_chat(history=[])
 
 
-    text = text + " Generate a quiz of MCQ along with options, answer key, explaination in short & point in terms of difficulty from 1 to 10,  using previous structure and store it in json file with no extra text and there should be a predefined segment number for each question where have you taken quesstion from transcript"
+    text = text + " Generate a quiz of MCQ along with options, answer key must be in '0,1,2,3', explaination in short & a point in terms of difficulty from 1 to 10,  using previous structure and store it in json file with no extra text and there should be a predefined segment number for each question where have you taken quesstion from transcript"
     convo.send_message(text)
 
     print(convo.last.text)
