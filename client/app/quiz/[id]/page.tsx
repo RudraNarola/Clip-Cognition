@@ -53,6 +53,8 @@ const Page = ({ params }: { params: { id: string } }) => {
     }
   }, []);
 
+  console.log("first", quizData);
+
   return <QuizForm quizData={quizData} />;
 };
 

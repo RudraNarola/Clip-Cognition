@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface Answer {
   title: string;
@@ -36,15 +36,16 @@ const ReportCard: React.FC<ReportCardProps> = ({
         >
           Incorrect Answers
         </button>
-      <br />
-        {showIncorrectAnswers && incorrectAnswers.map((answer, index) => (
-          <div key={index} className='bg-orange-600 mt-4 p-3 rounded-md'>
-            <h3>{answer.title}</h3>
-            <p>Correct Answer: {answer.correctAnswer}</p>
-            <p>Explanation: {answer.explanation}</p>
-            <p>Difficulty: {answer.difficulty}</p>
-          </div>
-        ))}
+        <br />
+        {showIncorrectAnswers &&
+          incorrectAnswers.map((answer, index) => (
+            <div key={index} className="bg-orange-600 mt-4 p-3 rounded-md">
+              <h3>{answer.title}</h3>
+              <p>Correct Answer: {answer.correctAnswer}</p>
+              <p>Explanation: {answer.explanation}</p>
+              <p>Difficulty: {answer.difficulty}</p>
+            </div>
+          ))}
 
         <button
           className="text-green-500 underline focus:outline-none mt-4"
@@ -53,12 +54,13 @@ const ReportCard: React.FC<ReportCardProps> = ({
           Correct Answers
         </button>
 
-        {showCorrectAnswers && correctOptions.map((answer, index) => (
-          <div key={index} className='bg-lime-600 mt-4 p-3 rounded-md'>
-            <h3>{answer.title}</h3>
-            <p>Correct Answer: {answer.correctAnswer}</p>
-          </div>
-        ))}
+        {showCorrectAnswers &&
+          correctOptions.map((answer, index) => (
+            <div key={index} className="bg-lime-600 mt-4 p-3 rounded-md">
+              <h3>{answer.title}</h3>
+              <p>Correct Answer: {answer.correctAnswer}</p>
+            </div>
+          ))}
       </div>
     </div>
   );
