@@ -3,12 +3,11 @@
 import React from "react";
 import { useIsClient } from "usehooks-ts";
 
-
 interface QuizComponentProps {
   index: number;
 }
 
-const QuizComponent: React.FC<QuizComponentProps> = ({index}) => {
+const QuizComponent: React.FC<QuizComponentProps> = ({ index }) => {
   // Sample quiz data
   const isclient = useIsClient();
   if (!isclient) {
@@ -21,13 +20,13 @@ const QuizComponent: React.FC<QuizComponentProps> = ({index}) => {
 
   return (
     <div className="bg-gray-700 hover:bg-sky-700 p-4 rounded-lg shadow-md mt-2 ">
-       <h2 className="text-white text-lg mb-4">{`${index + 1}. ${quizData.question}`}</h2>
-      <h2 className="text-white text-lg mb-4">{quizData.question}</h2>
+      <h2 className="text-white text-lg mb-4">{`${index + 1}. ${
+        quizData.question
+      }`}</h2>
+      {/* <h2 className="text-white text-lg mb-4">{quizData.question}</h2> */}
       <form>
         {quizData.options.map((option, index) => (
-      
           <div key={index} className="flex items-center mb-2">
-
             <input
               type="radio"
               id={`option-${index}`}

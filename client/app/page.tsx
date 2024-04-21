@@ -2,8 +2,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 import VideoCard from "@/components/VideoCard";
+import { getRecommendedVideos } from "@/lib/services/recommended.services";
 
-const HomePage = () => {
+const HomePage = async () => {
+  // get recommended videos
+  const recommendedVideos = await getRecommendedVideos();
+
   return (
     <>
       <section className="container mt-6 text-white font-custom">
@@ -16,18 +20,23 @@ const HomePage = () => {
           </p>
         </div>
 
-        <div className="w-[20rem]">
-          <VideoCard
-            title="Control Flow in Python - If Elif Else Statements"
-            rating={4}
-            previewImage="https://img.freepik.com/free-vector/diwali-festival-patterned-background_53876-118874.jpg?w=826&t=st=1713651549~exp=1713652149~hmac=96974e60d9587c0e339cfee648c5078ce01c46f56ae7e22da8805191c668c8c8"
-          />
+        <div className="w-full grid grid-cols-4 gap-8 mt-6">
+          {recommendedVideos &&
+            recommendedVideos.map((video) => (
+              <VideoCard
+                key={video._id}
+                title={video.title}
+                rating={4}
+                previewImage="https://img.freepik.com/free-vector/diwali-festival-patterned-background_53876-118874.jpg?w=826&t=st=1713651549~exp=1713652149~hmac=96974e60d9587c0e339cfee648c5078ce01c46f56ae7e22da8805191c668c8c8"
+              />
+            ))}
         </div>
-        <div className="w-full flex justify-center mt-4 mx-auto">
+
+        {/* <div className="w-full flex justify-center mt-4 mx-auto">
           <Button variant={"primary"}>
             Get Started <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
-        </div>
+        </div> */}
       </section>
       <section>{/* recommendedCourses.map() */}</section>
     </>

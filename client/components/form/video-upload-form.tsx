@@ -29,6 +29,7 @@ interface DocData {
 
 const VideoUploadForm = () => {
   const [file, setFile] = useState<File | null>(null);
+  const [progress, setProgress] = useState(0);
 
   const sendUrl = async (url: string, title: string, description: string) => {
     try {
@@ -80,8 +81,9 @@ const VideoUploadForm = () => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(progress);
+        let temp = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(temp);
+        setProgress(temp);
       },
       (error) => {
         console.log("error uploading file", error);
@@ -109,7 +111,7 @@ const VideoUploadForm = () => {
   return (
     <Form {...form}>
       <form
-        className="flex flex-col justify-start gap-6"
+        className="flex flex-col  gap-6"
         onSubmit={form.handleSubmit(handleClick)}
       >
         <FormField
@@ -123,7 +125,7 @@ const VideoUploadForm = () => {
               <FormControl>
                 <Input
                   type="text"
-                  className="account-form_input no-focus text-black"
+                  className="account-form_input no-focus "
                   {...field}
                   placeholder="Enter title of video"
                 />
@@ -153,20 +155,15 @@ const VideoUploadForm = () => {
             </FormItem>
           )}
         />
-
-        <div className="w-full mt-3 text-black font-montserrat font-normal flex justify-center  container">
-          <div className="box bg-white p-30 rounded-lg shadow-box-shadow w-full">
-            <h2 className="m-4 header mb-10 text-center  font-medium text-black">
-              {" "}
-              Drop Video File
-            </h2>
-            <div className="text-center pb-10 flex flex-col items-center">
-              <DropFileInput onFileChange={(files) => onFileChange(files)} />
-            </div>
-          </div>
+        {/* 
+        <div className="w-full mt-3 text-white border border-dark-4 rounded-md bg-dark-3 font-montserrat font-normal flex justify-center items-center "> */}
+        <div className="text-center flex flex-col items-center">
+          <DropFileInput onFileChange={(files) => onFileChange(files)} />
         </div>
-        <Button type="submit" variant={"primary"}>
-          Upload Video
+        {/* </div> */}
+        <Button type="submit">
+          Upload Video{" "}
+          {file && progress !== 0 ? `${progress.toFixed(1)} %` : null}
         </Button>
       </form>
     </Form>

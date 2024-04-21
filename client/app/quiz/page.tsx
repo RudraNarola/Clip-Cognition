@@ -5,9 +5,9 @@ const page = () => {
     <form action="report">
       <div className="w-[40rem] justify-center mx-auto mt-10">
         {/* error is bcz of indexing  */}
-        {/* <Quize />
-        <Quize />
-        <Quize /> */}
+        <Quize index={0} />
+        <Quize index={1} />
+        <Quize index={2} />
       </div>
       <div className="flex ms-[30rem]">
         <button

@@ -1,62 +1,62 @@
 [
   {
     "segment": 1,
-    "question": "What is Python's primary advantage according to the video?",
+    "question": "What type of language is Python?",
     "options": [
-      "Complex problem-solving with minimal code",
-      "Memory management capabilities",
-      "Platform-specific applications",
-      "Small community and limited libraries"
+      "Low-level",
+      "High-level",
+      "Middle-level",
+      "None of the above"
     ],
-    "answer": "A",
-    "explanation": "The video emphasizes Python's ability to solve complex problems with fewer lines of code compared to languages like C# and JavaScript."
+    "answer": "High-level",
+    "explanation": "Python is considered a high-level language because it abstracts away complex tasks like memory management, making it easier for programmers to focus on the logic of their code."
   },
   {
     "segment": 2,
-    "question": "Who can benefit from using Python, according to the speaker?",
+    "question": "What is one of the key advantages of Python?",
     "options": [
-      "Only software engineers",
-      "Individuals from various disciplines",
-      "Exclusively data scientists",
-      "Primarily accountants and network engineers"
+      "Complex syntax for solving problems",
+      "Requires extensive lines of code",
+      "Solves complex problems with less code",
+      "Limited community support"
     ],
-    "answer": "B",
-    "explanation": "The video highlights Python's versatility, mentioning its use by mathematicians, data analysts, scientists, accountants, network engineers, and even kids due to its beginner-friendly nature."
+    "answer": "Solves complex problems with less code",
+    "explanation": "Python's concise and expressive syntax allows developers to achieve more with fewer lines of code compared to some other languages."
   },
   {
     "segment": 3,
-    "question": "Which statement about Python's capabilities is accurate?",
+    "question": "Which platforms support Python applications?",
     "options": [
-      "It's strictly for web development",
-      "It's solely for data analysis",
-      "It's limited to mobile app creation",
-      "It offers a wide range of applications"
+      "Windows only",
+      "Mac only",
+      "Linux only",
+      "Windows, Mac, and Linux"
     ],
-    "answer": "D",
-    "explanation": "The video showcases Python's diverse applications, including web, mobile, and desktop development, data analysis, automation, machine learning, and even hacking."
+    "answer": "Windows, Mac, and Linux",
+    "explanation": "Python is cross-platform, meaning applications built with it can run on various operating systems, including Windows, Mac, and Linux." 
   },
   {
     "segment": 4,
-    "question": "What makes Python stand out from other programming languages?",
+    "question": "What is a significant benefit of Python's large community and ecosystem?",
     "options": [
-      "Its complexity and steep learning curve",
-      "Its platform dependency and limited libraries",
-      "Its simplicity, elegance, and large community",
-      "Its focus on low-level system tasks"
+      "Limited resources and support",
+      "Difficulty finding solutions to problems",
+      "Abundant libraries, frameworks, and tools",
+      "Slow development progress"
     ],
-    "answer": "C",
-    "explanation": "The video contrasts Python's simplicity and elegance with other languages, mentioning its large community, extensive libraries, and beginner-friendly syntax."
-  },
+    "answer": "Abundant libraries, frameworks, and tools",
+    "explanation": "Python's extensive community and ecosystem provide a wealth of pre-built libraries, frameworks, and tools that can accelerate development and problem-solving."
+  }, 
   {
     "segment": 5,
-    "question": "What is a significant reason for Python's popularity among employers?",
+    "question": "Why is Python a popular choice for beginners?",
     "options": [
-      "Its niche applications and limited user base",
-      "Its high learning curve and complexity",
-      "Its association with low-paying jobs",
-      "Its versatility and large talent pool"
+      "Steep learning curve",
+      "Complex and confusing syntax",
+      "Beginner-friendly and simple syntax",
+      "Limited learning resources"
     ],
-    "answer": "D",
-    "explanation": "The video states that Python is the number one language employers seek due to its versatility and the abundance of skilled Python developers." 
+    "answer": "Beginner-friendly and simple syntax",
+    "explanation": "Python's clean and straightforward syntax makes it easier for beginners to learn and understand the fundamentals of programming."
   }
 ]
