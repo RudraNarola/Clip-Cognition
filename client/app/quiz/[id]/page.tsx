@@ -1,32 +1,59 @@
-import Quize from "@/components/quiz";
-import { getQuizById } from "@/lib/services/quiz.services";
+// import { QuizForm } from "@/components/quiz-form";
+// import { getQuizById } from "@/lib/services/quiz.services";
 
-const Page = async ({ params }: { params: { id: string } }) => {
-  const quizRecord = await getQuizById(params.id);
-  console.log(quizRecord);
-  return (
-    <form action="report">
-      <div className="w-[40rem] justify-center mx-auto mt-10">
-        {quizRecord &&
-          quizRecord.questions.map((quiz: any, index: number) => (
-            <Quize
-              key={index}
-              index={index}
-              question={quiz.question}
-              options={quiz.options}
-            />
-          ))}
-      </div>
-      <div className="flex ms-[30rem]">
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-        >
-          Submit
-        </button>
-      </div>
-    </form>
-  );
+// const Page = async ({ params }: { params: { id: string } }) => {
+//   const quizRecord = await getQuizById(params.id);
+//   console.log("quizRecord", quizRecord);
+
+//   return <QuizForm quizRecord={quizRecord.questions} />;
+// };
+
+// export default Page;
+
+// {
+//   "questions": [
+//     {
+//       "question": "What is the capital of India?",
+//       "options": [
+//         "New Delhi",
+//         "Mumbai",
+//         "Chennai",
+//         "Kolkata"
+//       ],
+//       "answer": "0",
+//       "explanation": "New Delhi is the capital of India",
+//       difficulty: "easy"
+//       segment
+//     }
+//  ]
+
+// components/QuizForm.tsx
+
+"use client";
+import QuizForm from "@/components/quiz-form";
+import { useEffect, useState } from "react";
+
+const Page = ({ params }: { params: { id: string } }) => {
+  let quizRecord;
+  const [quizData, setQuizData] = useState([]);
+
+  useEffect(() => {
+    try {
+      const fetchQuiz = async () => {
+        const result = await fetch(`http://localhost:5000/api/${params.id}`);
+        quizRecord = await result.json();
+        quizRecord = JSON.parse(quizRecord);
+        setQuizData(quizRecord.questions);
+        // quizRecord = JSON.stringify(quizRecord);
+        console.log("Fetcted quiz data: ", quizRecord.questions);
+      };
+      fetchQuiz();
+    } catch (error) {
+      console.log("Error fetching quiz data: ", error);
+    }
+  }, []);
+
+  return <QuizForm quizData={quizData} />;
 };
 
 export default Page;

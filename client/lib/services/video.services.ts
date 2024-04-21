@@ -6,7 +6,7 @@ export const getVideoById = async (id: string) => {
     await connectToDB();
     let result = await Video.findById(id);
     result = JSON.parse(JSON.stringify(result));
-    console.log("video", result);
+
     return result;
 
     console.log("deafa", result);
