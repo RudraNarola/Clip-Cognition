@@ -1,15 +1,9 @@
-import exp from "constants";
 import mongoose from "mongoose";
 
 const quizSchema = new mongoose.Schema({
-  videoId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Video",
-    required: true,
-  },
   questions: [
     {
-      text: {
+      question: {
         type: String,
         required: true,
       },
@@ -19,14 +13,17 @@ const quizSchema = new mongoose.Schema({
           required: true,
         },
       ],
-      correctOption: {
-        type: Number,
+      answer: {
+        type: String,
         required: true,
       },
       explanation: {
         type: String,
       },
-      points: {
+      segment: {
+        type: Number,
+      },
+      difficulty: {
         type: Number,
         required: true,
       },

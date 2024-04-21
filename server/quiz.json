@@ -1,62 +1,67 @@
 [
   {
     "segment": 1,
-    "question": "What type of language is Python?",
+    "difficulty": 2,
+    "question": "What is the primary reason for Python's popularity among individuals from diverse professional backgrounds?",
     "options": [
-      "Low-level",
-      "High-level",
-      "Middle-level",
-      "None of the above"
+      "Extensive use in academic research",
+      "Beginner-friendly syntax and versatility",
+      "Its origin as an open-source project",
+      "High demand in the video game industry"
     ],
-    "answer": "High-level",
-    "explanation": "Python is considered a high-level language because it abstracts away complex tasks like memory management, making it easier for programmers to focus on the logic of their code."
+    "answer": "Beginner-friendly syntax and versatility",
+    "explanation": "Python's simple syntax and wide range of applications make it accessible and valuable to people in various fields, not just software development."
   },
   {
     "segment": 2,
-    "question": "What is one of the key advantages of Python?",
+    "difficulty": 3,
+    "question": "Which of the following tasks is NOT commonly automated using Python?",
     "options": [
-      "Complex syntax for solving problems",
-      "Requires extensive lines of code",
-      "Solves complex problems with less code",
-      "Limited community support"
+      "File organization and manipulation",
+      "Data extraction from websites",
+      "Real-time video game animation",
+      "Processing of spreadsheets and PDFs"
     ],
-    "answer": "Solves complex problems with less code",
-    "explanation": "Python's concise and expressive syntax allows developers to achieve more with fewer lines of code compared to some other languages."
+    "answer": "Real-time video game animation",
+    "explanation": "While Python can be used for game development, it's not typically the first choice for real-time animation due to performance considerations. Other languages like C++ are often preferred for such tasks." 
   },
   {
     "segment": 3,
-    "question": "Which platforms support Python applications?",
+    "difficulty": 4,
+    "question": "How does Python code compare to languages like C# or JavaScript in terms of complexity?",
     "options": [
-      "Windows only",
-      "Mac only",
-      "Linux only",
-      "Windows, Mac, and Linux"
+      "Python code is generally more verbose and intricate.",
+      "Python code is similar in complexity to C# and JavaScript.",
+      "Python code is often shorter and more readable.",
+      "Python code is exclusively used for scientific computing." 
     ],
-    "answer": "Windows, Mac, and Linux",
-    "explanation": "Python is cross-platform, meaning applications built with it can run on various operating systems, including Windows, Mac, and Linux." 
+    "answer": "Python code is often shorter and more readable.",
+    "explanation": "Python's syntax emphasizes clarity and conciseness, often requiring fewer lines of code to achieve the same results as languages like C# or JavaScript."
   },
   {
     "segment": 4,
-    "question": "What is a significant benefit of Python's large community and ecosystem?",
+    "difficulty": 5,
+    "question": "What is a key advantage of Python being a high-level language?",
     "options": [
-      "Limited resources and support",
-      "Difficulty finding solutions to problems",
-      "Abundant libraries, frameworks, and tools",
-      "Slow development progress"
+      "Direct control over hardware resources",
+      "Compatibility with legacy systems", 
+      "Reduced need for manual memory management",
+      "Enhanced performance in resource-intensive tasks"
     ],
-    "answer": "Abundant libraries, frameworks, and tools",
-    "explanation": "Python's extensive community and ecosystem provide a wealth of pre-built libraries, frameworks, and tools that can accelerate development and problem-solving."
-  }, 
+    "answer": "Reduced need for manual memory management",
+    "explanation": "High-level languages like Python handle memory management automatically, freeing developers from low-level tasks and potential errors associated with manual memory allocation." 
+  },
   {
     "segment": 5,
-    "question": "Why is Python a popular choice for beginners?",
+    "difficulty": 1,
+    "question": "Which statement best summarizes the video's perspective on Python?",
     "options": [
-      "Steep learning curve",
-      "Complex and confusing syntax",
-      "Beginner-friendly and simple syntax",
-      "Limited learning resources"
+      "Python is suitable only for experienced programmers.", 
+      "Python is a specialized tool for data science.",
+      "Python is a versatile and beginner-friendly language with numerous applications.",
+      "Python is rapidly declining in popularity due to newer languages."
     ],
-    "answer": "Beginner-friendly and simple syntax",
-    "explanation": "Python's clean and straightforward syntax makes it easier for beginners to learn and understand the fundamentals of programming."
+    "answer": "Python is a versatile and beginner-friendly language with numerous applications.",
+    "explanation": "The video consistently highlights Python's ease of use, broad applicability across various domains, and its growing popularity."
   }
 ]
