@@ -1,6 +1,7 @@
 // components/VideoCard.tsx
 
 import { Play } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 import { FaPlayCircle } from "react-icons/fa";
 
@@ -43,6 +44,13 @@ const VideoCard: React.FC<VideoCardProps> = ({
 
   return (
     <div className="bg-neutral-600 rounded-lg shadow-md overflow-hidden relative group">
+      {/* <Image
+        src={previewImage}
+        alt={title}
+        className="w-full h-40 object-cover"
+        width={65}
+        height={30}
+      /> */}
       <img
         src={previewImage}
         alt={title}

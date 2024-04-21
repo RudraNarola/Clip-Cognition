@@ -13,7 +13,7 @@ const HomePage = async () => {
       <section className="container mt-6 text-white font-custom">
         <div className=" w-full h-[40%] rounded-sm px-10 py-4 flex flex-col">
           <h1 className="mx-auto text-6xl font-bold text-center mt-6">
-            Welcome To Clip Cognition{" "}
+            Welcome To <span className="text-blue-700">Clip Cognition</span>
           </h1>
           <p className="text-center mt-6">
             Explore, Learn, and Quiz Your Way Through Video Knowledge!

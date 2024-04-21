@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { VideoValidation } from "@/lib/validations/video";
 import DropFileInput from "../drop-file-input/DropFileInput";
+import { useTransition } from "react";
 
 interface DocData {
   mostRecentUploadURL: string;
@@ -30,6 +31,7 @@ interface DocData {
 const VideoUploadForm = () => {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
+  const [isPending, setIsPending] = useState(false);
 
   const sendUrl = async (url: string, title: string, description: string) => {
     try {
@@ -73,6 +75,7 @@ const VideoUploadForm = () => {
   };
 
   const handleClick = (values: z.infer<typeof VideoValidation>) => {
+    setIsPending(true);
     if (file === null) return;
 
     const fileRef = ref(storage, `videos/${file.name}`);
@@ -97,6 +100,7 @@ const VideoUploadForm = () => {
         console.log("AEFAEFAE", downloadURL);
       }
     );
+    setIsPending(false);
   };
 
   const form = useForm<z.infer<typeof VideoValidation>>({
@@ -161,7 +165,7 @@ const VideoUploadForm = () => {
           <DropFileInput onFileChange={(files) => onFileChange(files)} />
         </div>
         {/* </div> */}
-        <Button type="submit">
+        <Button type="submit" disabled={isPending}>
           Upload Video{" "}
           {file && progress !== 0 ? `${progress.toFixed(1)} %` : null}
         </Button>
