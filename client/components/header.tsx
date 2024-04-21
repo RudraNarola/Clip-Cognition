@@ -11,14 +11,17 @@ export default async function Header() {
     <div className=" text-neutral-100">
       <div className="container flex items-center justify-between font-custom pt-6">
         <div className="flex gap-2 items-center">
-          <Image
-            src="/logo.jpg"
-            height={40}
-            width={40}
-            alt="logo"
-            className="object-cover rounded-full h-14 w-14 bg-transparent"
-          />
-          <Link href="/" className="font-bold text-2xl">
+          <Link
+            href="/"
+            className="font-bold text-2xl flex  items-center gap-3"
+          >
+            <Image
+              src="/logo.jpg"
+              height={40}
+              width={40}
+              alt="logo"
+              className="object-cover rounded-full h-14 w-14 bg-transparent"
+            />
             ClipCognition
           </Link>
         </div>

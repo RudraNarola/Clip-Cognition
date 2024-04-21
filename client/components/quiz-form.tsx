@@ -105,40 +105,51 @@ const QuizForm = ({ quizData }: { quizData: any }) => {
     console.log("incooree", inncorrectAnswers);
 
     return (
-      <ReportCard
-        correctAnswers={sum}
-        wrongAnswers={scoreState.length - sum}
-        incorrectAnswers={inncorrectAnswers}
-        correctOptions={correctAnswers}
-      />
+      <div className="w-[70%] justify-center mx-auto mt-10">
+        <ReportCard
+          correctAnswers={sum}
+          wrongAnswers={scoreState.length - sum}
+          incorrectAnswers={inncorrectAnswers}
+          correctOptions={correctAnswers}
+        />
+      </div>
     );
   }
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-gray-100 p-4 rounded-lg shadow-md"
+      className="bg-gray-100 p-4 pl-16 pt-10 font-custom rounded-lg shadow-md flex flex-col container mt-4 px-4 w-[80%] mx-auto"
     >
-      {quizData.map((question, index) => (
-        <div key={question.id} className="mb-4">
-          <p className="font-bold">{question.title}</p>
-          {question.options.map((option, optionIndex) => (
-            <label key={optionIndex} className="block mt-2">
-              <input
-                type="radio"
-                value={optionIndex}
-                checked={answers[index] === optionIndex}
-                onChange={() => handleRadioChange(index, optionIndex)}
-                className="mr-2"
-              />
-              {option}
-            </label>
-          ))}
-        </div>
-      ))}
+      <div className="flex flex-col gap-4">
+        {quizData.map((question, index) => (
+          <div key={question.id} className="mb-5">
+            <p className="font-bold text-xl">
+              {" "}
+              {index + 1}. {question.title}
+            </p>
+            <div className="flex flex-col">
+              {question.options.map((option, optionIndex) => (
+                <div className="flex items-center gap-2 ">
+                  <input
+                    type="radio"
+                    value={optionIndex}
+                    checked={answers[index] === optionIndex}
+                    onChange={() => handleRadioChange(index, optionIndex)}
+                    className="h-3 w-3  focus:ring-blue-600 rounded-full border border-none"
+                  />
+                  <label key={optionIndex} className="block text-lg">
+                    {option}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
       <button
         type="submit"
-        className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-lg"
+        className="bg-blue-500 text-white px-4 py-2 mt-6 rounded-lg w-[60%] mx-auto"
       >
         Submit
       </button>
