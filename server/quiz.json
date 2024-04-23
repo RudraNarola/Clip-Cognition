@@ -2,53 +2,53 @@
   {
     "segment": 1,
     "difficulty": 3,
-    "question": "What is the purpose of the `range(1, 10)` function in the program?",
+    "question": "What is the purpose of using a 'for' loop in the context of lists?",
     "options": [
-      "It creates a list of numbers from 1 to 9.",
-      "It checks if each number is even.",
-      "It prints the numbers from 1 to 9.",
-      "It calculates the sum of numbers from 1 to 9."
+      "To sort the elements of the list.",
+      "To access and process each element of the list individually.",
+      "To modify the original list.",
+      "To create a new list with the same elements."
     ],
-    "answer": "0",
-    "explanation": "The `range(1, 10)` function generates a sequence of numbers from 1 (inclusive) to 10 (exclusive), which the loop iterates over."
+    "answer": 1,
+    "explanation": "A 'for' loop is used to iterate over a list, allowing you to access and work with each element one at a time."
   },
   {
     "segment": 2,
     "difficulty": 5,
-    "question": "How does the program determine if a number is even?",
+    "question": "What does the 'enumerate()' function do when used with a list?",
     "options": [
-      "It divides the number by 2 and checks if the result is a whole number.",
-      "It uses the modulo operator (%) to check if the remainder is 0 when divided by 2.",
-      "It compares the number to a list of known even numbers.",
-      "It checks if the number is divisible by both 2 and 4."
+      "It returns the length of the list.",
+      "It sorts the list in ascending order.",
+      "It creates a copy of the list.",
+      "It returns both the index and value of each item in the list."
     ],
-    "answer": "1",
-    "explanation": "The expression `number % 2 == 0` checks if the remainder is 0 when the number is divided by 2, which is a characteristic of even numbers."
+    "answer": 3,
+    "explanation": "'enumerate()' provides an easy way to access both the index and value of each element during iteration, making it useful for tasks that require knowledge of element positions."
   },
   {
     "segment": 3,
-    "difficulty": 2,
-    "question": "What is the role of the `count` variable?",
+    "difficulty": 7,
+    "question": "How can you extract both the index and value from the tuple returned by 'enumerate()'?",
     "options": [
-      "It stores the sum of even numbers.",
-      "It keeps track of the number of even numbers found.",
-      "It holds the current number being processed in the loop.",
-      "It determines the range of numbers to iterate over."
+      "By using list indexing (e.g., item[0] for index, item[1] for value).",
+      "By converting the tuple into a list.",
+      "By using tuple unpacking (e.g., index, value = item).",
+      "By calling a separate function to split the tuple."
     ],
-    "answer": "1",
-    "explanation": "The `count` variable is incremented each time an even number is identified, thus counting the total number of even numbers." 
+    "answer": 2,
+    "explanation": "Tuple unpacking allows you to assign the individual elements of a tuple to separate variables directly, providing a concise and efficient way to access both the index and value."
   },
   {
     "segment": 4,
     "difficulty": 4,
-    "question": "What is the output of the following code snippet: `print(f\"We have {count} even numbers.\")`?",
+    "question": "What is a key advantage of using 'enumerate()' over manually tracking the index?",
     "options": [
-      "It prints the value of the `count` variable.",
-      "It displays a message with the total count of even numbers.", 
-      "It shows the list of even numbers found.",
-      "It prints the range of numbers used in the loop."
+      "It reduces code complexity and potential for errors.",
+      "It makes the loop run faster.",
+      "It allows you to modify the list within the loop.",
+      "It provides additional features like sorting." 
     ],
-    "answer": "1",
-    "explanation": "The f-string formats the message by inserting the value of the `count` variable, resulting in a statement like \"We have 4 even numbers.\""
+    "answer": 0,
+    "explanation": "'enumerate()' simplifies the process of accessing both index and value, making the code cleaner and less prone to mistakes compared to manually managing an index variable."
   }
 ] 

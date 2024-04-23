@@ -6,39 +6,22 @@ import whisper # type: ignore
 from moviepy.editor import AudioFileClip # type: ignore
 from moviepy.video.VideoClip import ImageClip  # type: ignore
 import google.generativeai as genai # type: ignore
-from pymongo import MongoClient # type: ignore
 import os
 import json
-from bson.objectid import ObjectId
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+cred = credentials.Certificate("./secret.json")
+app = firebase_admin.initialize_app(cred)
+store = firestore.client()
 
 app = Flask(__name__)
-client = MongoClient('mongodb+srv://lightningthunder2494:IQB9xZiN5l5jCztp@cluster0.havsrie.mongodb.net/')
-db = client['test']
-
 CORS(app)
 
+env = json.load((open('./api.json')))
+print(env)
 
-# /quiz/${params.id}
-@app.get('/api/<id>')
-def getQuiz(id):
 
-    collection = db['quizzes']
-    object_id = ObjectId(id)
-    result = collection.find_one({'_id': object_id})
-
-# Check if a record was found
-    if result:
-    # Convert ObjectId to string before serializing to JSON
-        result['_id'] = str(result['_id'])
-
-    # Serialize the result to JSON
-    json_data = json.dumps(result)
-    print(json_data)
-    
-
-    return json.dumps(json_data), 200
-
-@app.get('/api/score')
 
 @app.route('/getTranscript', methods=['POST'])
 def getTranscript():
@@ -116,7 +99,7 @@ def getTranscript():
 
     print(final_text)
 
-    with open('your_file.txt', 'w',encoding="utf-8", errors='ignore') as textFile:
+    with open('transcript.txt', 'w',encoding="utf-8", errors='ignore') as textFile:
         textFile.write(final_text)
 
     makeQuizes(final_text, title, description, video_url)
@@ -128,7 +111,7 @@ def getTranscript():
 def makeQuizes(text, title, description, video_url):
 
     # Set up the API key
-    genai.configure(api_key="AIzaSyBy6SBMx6wnlwUUsVp0IkcKP_zkIt1BNnU")
+    genai.configure(api_key=env["GENAI_API_KEY"])
 
     # Set up the model
     generation_config = {
@@ -177,35 +160,64 @@ def makeQuizes(text, title, description, video_url):
         jsonFile.write(textFile)
     createQuizes(title, description, video_url)
 
+
 def createVideo(title,description,video_url,quiz_id):
-    if video_url is None:
-        raise ValueError("Video URL cannot be null")
-    print("in the function", title, description, video_url, quiz_id)
-    collection = db['videos']
-    result = collection.insert_one({
-            "title": title,
-            "description": description,
-            "video_url": video_url,
-            "quizId": quiz_id,
-        })
-    print("Video created successfully", result)
+    print("Create video docs in databse", title, description, video_url, quiz_id)
+
+    doc_ref = store.collection("videos")
+    result = doc_ref.add({
+        "title": title,
+        "description": description,
+        "video_url": video_url,
+        "quizId": quiz_id
+    })
+
+    print("Video created successfully", result[1].id)
     return result
+
+    # if video_url is None:
+    #     raise ValueError("Video URL cannot be null")
+    # collection = db['videos']
+    # result = collection.insert_one({
+    #         "title": title,
+    #         "description": description,
+    #         "video_url": video_url,
+    #         "quizId": quiz_id,
+    #     })
+    # print("Video created successfully", result)
+    # return result
 
 
 def createQuizes(title, description, video_url):
-    collection = db['quizzes']
-    with open('quiz.json') as f:
-        qeus = json.load(f)
 
-    result = collection.insert_one({
-            "questions": qeus,
-            
-        })
-    print("Full result", result)
-    print("Quiz created successfully", result.inserted_id)
-    quiz_id = result.inserted_id
-    createVideo(title, description, video_url, quiz_id)
+    with open('quiz.json') as f:
+        quizJSON = json.load(f)
+
+    # print("Create quiz docs in databse", quizJSON)
+
+    # firestore
+    doc_ref = store.collection("quizzes")
+    result = doc_ref.add({
+        "questions": quizJSON
+    })
+
+    # print("Quiz created successfully", result)
+    print("Quiz created successfully", result[1].id)
+    createVideo(title, description, video_url, result[1].id)
+
     return result
+
+    # mongodb
+    # collection = db['quizzes']
+    
+    # result = collection.insert_one({
+    #         "questions": quizJSON,
+    #     })
+    # print("Full result", result)
+    # print("Quiz created successfully", result.inserted_id)
+    # quiz_id = result.inserted_id
+    # createVideo(title, description, video_url, quiz_id)
+    # return result
     
 
 if __name__ == '__main__':
