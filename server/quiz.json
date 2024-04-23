@@ -1,93 +1,54 @@
 [
   {
     "segment": 1,
+    "difficulty": 3,
+    "question": "What is the purpose of the `range(1, 10)` function in the program?",
+    "options": [
+      "It creates a list of numbers from 1 to 9.",
+      "It checks if each number is even.",
+      "It prints the numbers from 1 to 9.",
+      "It calculates the sum of numbers from 1 to 9."
+    ],
+    "answer": "0",
+    "explanation": "The `range(1, 10)` function generates a sequence of numbers from 1 (inclusive) to 10 (exclusive), which the loop iterates over."
+  },
+  {
+    "segment": 2,
     "difficulty": 5,
-    "question": "What is the purpose of an if statement in Python?",
+    "question": "How does the program determine if a number is even?",
     "options": [
-      "To create variables",
-      "To perform mathematical calculations",
-      "To make decisions based on conditions",
-      "To print messages to the console"
-    ],
-    "answer": "2",
-    "explanation": "If statements allow your code to execute different blocks of code based on whether a certain condition is True or False."
-  },
-  {
-    "segment": 1,
-    "difficulty": 7,
-    "question": "What is the significance of indentation in Python if statements?",
-    "options": [
-      "It improves code readability",
-      "It determines which statements belong to the if block",
-      "It has no specific meaning",
-      "It separates keywords from variables"
+      "It divides the number by 2 and checks if the result is a whole number.",
+      "It uses the modulo operator (%) to check if the remainder is 0 when divided by 2.",
+      "It compares the number to a list of known even numbers.",
+      "It checks if the number is divisible by both 2 and 4."
     ],
     "answer": "1",
-    "explanation": "Indentation is crucial in Python as it defines the scope of the if block and tells the interpreter which statements should be executed if the condition is True."
-  },
-  {
-    "segment": 2,
-    "difficulty": 6,
-    "question": "What is the alternative to using multiple if statements with different conditions?",
-    "options": [
-      "While loops",
-      "For loops",
-      "Else statements",
-      "Elif statements"
-    ],
-    "answer": "3",
-    "explanation": "Elif statements offer a more structured way to check multiple conditions, executing the appropriate block only if the corresponding condition is True."
-  },
-  {
-    "segment": 2,
-    "difficulty": 8,
-    "question": "How does the ternary operator simplify if-else statements?",
-    "options": [
-      "It combines the condition and the result into a single line",
-      "It removes the need for indentation",
-      "It introduces new keywords",
-      "It only works with numerical values"
-    ],
-    "answer": "0",
-    "explanation": "The ternary operator provides a concise way to assign values based on a condition, making the code more compact and readable."
+    "explanation": "The expression `number % 2 == 0` checks if the remainder is 0 when the number is divided by 2, which is a characteristic of even numbers."
   },
   {
     "segment": 3,
-    "difficulty": 4,
-    "question": "What are the three logical operators in Python?",
+    "difficulty": 2,
+    "question": "What is the role of the `count` variable?",
     "options": [
-      "And, Or, Not",
-      "Plus, Minus, Multiply",
-      "Equal, Not Equal, Greater Than",
-      "If, Elif, Else"
-    ],
-    "answer": "0",
-    "explanation": "These operators are used to combine or negate Boolean expressions, allowing you to create complex conditions."
-  },
-  {
-    "segment": 3,
-    "difficulty": 9,
-    "question": "How does short-circuiting behavior work with logical operators?",
-    "options": [
-      "It evaluates all conditions regardless of the outcome",
-      "It stops evaluation as soon as the result is determined",
-      "It prioritizes certain operators over others",
-      "It only applies to the 'And' operator"
+      "It stores the sum of even numbers.",
+      "It keeps track of the number of even numbers found.",
+      "It holds the current number being processed in the loop.",
+      "It determines the range of numbers to iterate over."
     ],
     "answer": "1",
-    "explanation": "Short-circuiting optimizes evaluation by stopping as soon as the final result is known, improving efficiency." 
+    "explanation": "The `count` variable is incremented each time an even number is identified, thus counting the total number of even numbers." 
   },
   {
     "segment": 4,
-    "difficulty": 7,
-    "question": "What is the benefit of chaining comparison operators?",
+    "difficulty": 4,
+    "question": "What is the output of the following code snippet: `print(f\"We have {count} even numbers.\")`?",
     "options": [
-      "It reduces code complexity",
-      "It introduces new data types",
-      "It only works with numerical values",
-      "It requires fewer variables"
+      "It prints the value of the `count` variable.",
+      "It displays a message with the total count of even numbers.", 
+      "It shows the list of even numbers found.",
+      "It prints the range of numbers used in the loop."
     ],
-    "answer": "0",
-    "explanation": "Chaining allows you to express multiple comparisons in a single line, enhancing code readability and maintainability."
+    "answer": "1",
+    "explanation": "The f-string formats the message by inserting the value of the `count` variable, resulting in a statement like \"We have 4 even numbers.\""
   }
-]
+] 

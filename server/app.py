@@ -17,6 +17,7 @@ db = client['test']
 
 CORS(app)
 
+
 # /quiz/${params.id}
 @app.get('/api/<id>')
 def getQuiz(id):
@@ -73,6 +74,10 @@ def getTranscript():
     base_path = "C:/Users/Admin/OneDrive/Desktop/Clip-Cognition/server/allaudio"
     if not os.path.exists(base_path):
             os.mkdir(base_path)
+    else:
+    # Delete previously generated audio chunk files
+     for file in os.listdir(base_path):
+        os.remove(os.path.join(base_path,file))
     
     while (True):
         audio_clip = AudioFileClip(path)
@@ -114,13 +119,14 @@ def getTranscript():
     with open('your_file.txt', 'w',encoding="utf-8", errors='ignore') as textFile:
         textFile.write(final_text)
 
-    makeQuizes(final_text,title,description,video_url)
+    makeQuizes(final_text, title, description, video_url)
 
     success_message = {'message': 'Operation was successful'}
     return jsonify(success_message), 200
 
 
-def makeQuizes(text,title,description,video_url):
+def makeQuizes(text, title, description, video_url):
+
     # Set up the API key
     genai.configure(api_key="AIzaSyBy6SBMx6wnlwUUsVp0IkcKP_zkIt1BNnU")
 
@@ -171,21 +177,22 @@ def makeQuizes(text,title,description,video_url):
         jsonFile.write(textFile)
     createQuizes(title, description, video_url)
 
-def createVideo(title, description, video_url, quiz_id):
+def createVideo(title,description,video_url,quiz_id):
+    if video_url is None:
+        raise ValueError("Video URL cannot be null")
+    print("in the function", title, description, video_url, quiz_id)
     collection = db['videos']
-    result = collection.insert_one(
-        {
+    result = collection.insert_one({
             "title": title,
             "description": description,
             "video_url": video_url,
             "quizId": quiz_id,
-        }
-    )
+        })
     print("Video created successfully", result)
     return result
 
 
-def createQuizes(title,description,video_url):
+def createQuizes(title, description, video_url):
     collection = db['quizzes']
     with open('quiz.json') as f:
         qeus = json.load(f)
@@ -196,7 +203,8 @@ def createQuizes(title,description,video_url):
         })
     print("Full result", result)
     print("Quiz created successfully", result.inserted_id)
-    createVideo(title, description, video_url, result.inserted_id)
+    quiz_id = result.inserted_id
+    createVideo(title, description, video_url, quiz_id)
     return result
     
 
