@@ -78,7 +78,7 @@ const VideoUploadForm = () => {
     setIsPending(true);
     if (file === null) return;
 
-    const fileRef = ref(storage, `videos/${file.name}`);
+    const fileRef = ref(storage, `${file.name}`);
     const uploadTask = uploadBytesResumable(fileRef, file);
 
     uploadTask.on(
