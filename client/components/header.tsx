@@ -11,14 +11,17 @@ export default async function Header() {
     <div className=" text-neutral-100">
       <div className="container flex items-center justify-between font-custom pt-6">
         <div className="flex gap-2 items-center">
-          <Image
-            src="/logo.jpg"
-            height={40}
-            width={40}
-            alt="logo"
-            className="object-cover rounded-full h-14 w-14 bg-transparent"
-          />
-          <Link href="/" className="font-bold text-2xl">
+          <Link
+            href="/"
+            className="font-bold text-2xl flex  items-center gap-3"
+          >
+            <Image
+              src="/logo.jpg"
+              height={40}
+              width={40}
+              alt="logo"
+              className="object-cover rounded-full h-14 w-14 bg-transparent"
+            />
             ClipCognition
           </Link>
         </div>
@@ -27,21 +30,31 @@ export default async function Header() {
             <div className="flex gap-20 items-center">
               <div className="flex items-center gap-10 text-lg">
                 <Link
+                  href="/quizes"
+                  className="hover:bg-gray-500/10 px-3 py-1 rounded-md"
+                >
+                  Quiz
+                </Link>
+                <Link
+                  href="/leaderboard"
+                  className="hover:bg-gray-500/10 px-3 py-1 rounded-md"
+                >
+                  Leaderboard
+                </Link>
+                <Link
                   href="/upload"
                   className="hover:bg-gray-500/10 px-3 py-1 rounded-md"
                 >
                   Upload
                 </Link>
-
-                <Link
-                  href="/profile"
-                  className="hover:bg-gray-500/10 px-3 py-1 rounded-md"
-                >
-                  Profile
-                </Link>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-white text-lg">{user?.fullName}</span>
+              <div className="flex items-center gap-1 hover:bg-gray-500/10 px-3 py-1 rounded-md">
+                <Link href="/profile" className="px-3 py-1 rounded-md">
+                  {" "}
+                  <span className="text-white text-xl font-semibold">
+                    {user?.fullName}
+                  </span>
+                </Link>
                 <UserButton afterSignOutUrl="/" />
               </div>
             </div>

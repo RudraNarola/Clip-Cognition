@@ -13,10 +13,17 @@ const videoSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  transcriptId: {
-    type: String,
+  // transcriptId: {
+  //   type: String,
+  //   required: true,
+  // },
+
+  quizId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Quiz",
     required: true,
   },
+
   uploadDate: {
     type: Date,
     default: Date.now,

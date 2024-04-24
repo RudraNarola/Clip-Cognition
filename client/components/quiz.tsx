@@ -1,40 +1,73 @@
-// components/QuizComponent.tsx
 "use client";
-import React from "react";
-import { useIsClient } from "usehooks-ts";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-const QuizComponent: React.FC = () => {
-  // Sample quiz data
-  const isclient = useIsClient();
-  if (!isclient) {
-    return <div>Loading...</div>;
-  }
-  const quizData = {
-    question: "What is the capital of France?",
-    options: ["Paris", "London", "Berlin", "Madrid"],
-  };
+export const AQuiz = ({
+  index,
+  question,
+  options,
+  answerKey,
+}: {
+  index: number;
+  question: string;
+  options: string[];
+  answerKey: string;
+}) => {
+  console.log("Answer key", answerKey);
 
   return (
     <div className="bg-gray-700 hover:bg-sky-700 p-4 rounded-lg shadow-md mt-2 ">
-      <h2 className="text-white text-lg mb-4">{quizData.question}</h2>
-      <form>
-        {quizData.options.map((option, index) => (
-          <div key={index} className="flex items-center mb-2">
-            <input
-              type="radio"
-              id={`option-${index}`}
-              name="quiz-option"
-              value={option}
-              className="mr-2"
-            />
-            <label htmlFor={`option-${index}`} className="text-white">
-              {option}
-            </label>
+      <h2 className="text-white text-lg mb-4">{`${index + 1}. ${question}`}</h2>
+      <RadioGroup>
+        {/* {options.map((option, index) => (
+          <div
+            key={index}
+            className=" flex  items-center space-x-2 hover:cursor-pointer"
+          >
+            <div className=" flex items-center space-x-1">
+              <RadioGroupItem value={index.toString()} id={`option-${index}`} />
+              <Label htmlFor={`option-${index}`}></Label>
+            </div>
+            <div className=" flex items-center flex-wrap">{option}</div>
           </div>
-        ))}
-      </form>
+        ))} */}
+
+        {/* option A */}
+        <div className="flex  items-center space-x-2 hover:cursor-pointer">
+          <div className="flex items-center space-x-1">
+            <RadioGroupItem value="0" id={`option-0`} />
+            <Label htmlFor={`option-0`}></Label>
+          </div>
+          <div className="flex items-center flex-wrap">{options[0]}</div>
+        </div>
+
+        {/* option B */}
+        <div className="flex  items-center space-x-2 hover:cursor-pointer">
+          <div className="flex items-center space-x-1">
+            <RadioGroupItem value="1" id={`option-1`} />
+            <Label htmlFor={`option-1`}></Label>
+          </div>
+          <div className="flex items-center flex-wrap">{options[1]}</div>
+        </div>
+
+        {/* option C */}
+        <div className="flex  items-center space-x-2 hover:cursor-pointer">
+          <div className="flex items-center space-x-1">
+            <RadioGroupItem value="2" id={`option-2`} />
+            <Label htmlFor={`option-2`}></Label>
+          </div>
+          <div className="flex items-center flex-wrap">{options[2]}</div>
+        </div>
+
+        {/* option D */}
+        <div className="flex  items-center space-x-2 hover:cursor-pointer">
+          <div className="flex items-center space-x-1">
+            <RadioGroupItem value="3" id={`option-3`} />
+            <Label htmlFor={`option-3`}></Label>
+          </div>
+          <div className="flex items-center flex-wrap">{options[3]}</div>
+        </div>
+      </RadioGroup>
     </div>
   );
 };
-
-export default QuizComponent;

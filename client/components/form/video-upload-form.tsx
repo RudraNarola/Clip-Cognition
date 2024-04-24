@@ -21,6 +21,9 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { VideoValidation } from "@/lib/validations/video";
 import DropFileInput from "../drop-file-input/DropFileInput";
+import { useTransition } from "react";
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
 interface DocData {
   mostRecentUploadURL: string;
@@ -29,15 +32,22 @@ interface DocData {
 
 const VideoUploadForm = () => {
   const [file, setFile] = useState<File | null>(null);
+  const [progress, setProgress] = useState(0);
+  // const [isPending, setIsPending] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
-  const sendUrl = async (url: string) => {
+  const sendUrl = async (url: string, title: string, description: string) => {
     try {
       const response = await fetch("http://localhost:5000/getTranscript", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ url: url }),
+        body: JSON.stringify({
+          title: title,
+          description: description,
+          url: url,
+        }),
       });
       const data = await response.json();
       console.log(data);
@@ -67,48 +77,31 @@ const VideoUploadForm = () => {
       });
   };
 
-  const handleClick = () => {
-    if (file === null) return;
+  const handleClick = (values: z.infer<typeof VideoValidation>) => {
+    startTransition(() => {
+      if (file === null) return;
 
-    const fileRef = ref(storage, `videos/${file.name}`);
-    const uploadTask = uploadBytesResumable(fileRef, file);
+      const fileRef = ref(storage, `${file.name}`);
+      const uploadTask = uploadBytesResumable(fileRef, file);
 
-    // uploadTask.on(
-    //   "state_changed",
-    //   (snapshot) => {
-    //     let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    //     console.log(progress);
-    //   },
-    //   (error) => {
-    //     console.log("Error occurred while uploading video: ", error);
-    //   },
-    //   () => {
-    //     console.log("Video uploaded successfully!!");
-    //     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-    //       uploadToDatabase(downloadURL);
-    //       console.log(downloadURL);
-    //     });
-    //   }
-    // );
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          let temp = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(temp);
+          setProgress(temp);
+        },
+        (error) => {
+          console.log("error uploading file", error);
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          sendUrl(downloadURL, values.title, values.description);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(progress);
-      },
-      (error) => {
-        console.log("error uploading file", error);
-      },
-      async () => {
-        console.log("success!!");
-        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-        sendUrl(downloadURL);
-
-        uploadToDatabase(downloadURL);
-        console.log("AEFAEFAE", downloadURL);
-      }
-    );
+          uploadToDatabase(downloadURL);
+        }
+      );
+    });
   };
 
   const form = useForm<z.infer<typeof VideoValidation>>({
@@ -120,11 +113,32 @@ const VideoUploadForm = () => {
     },
   });
 
+  if (progress === 100) {
+    return (
+      <>
+        <div className="text-2xl text-white flex flex-col justify-center items-center py-32 w-full text-center font-custom">
+          <h1 className="text-4xl mb-4 font-bold">
+            Video Uploaded <span className="text-green-500">Successfully</span>
+          </h1>
+          <h3>
+            Generation of Quiz will depend upon the length of video. Thank You
+            for your patience.
+          </h3>
+          <Link href="/" className="w-full">
+            <Button variant="primary" className="mt-6 w-[20%] ">
+              Go Home
+            </Button>
+          </Link>
+        </div>
+      </>
+    );
+  }
+
   return (
     <Form {...form}>
       <form
-        className="flex flex-col justify-start gap-6"
-        onSubmit={form.handleSubmit(() => handleClick())}
+        className="flex flex-col  gap-6"
+        onSubmit={form.handleSubmit(handleClick)}
       >
         <FormField
           control={form.control}
@@ -137,7 +151,7 @@ const VideoUploadForm = () => {
               <FormControl>
                 <Input
                   type="text"
-                  className="account-form_input no-focus text-black"
+                  className="account-form_input no-focus "
                   {...field}
                   placeholder="Enter title of video"
                 />
@@ -167,20 +181,13 @@ const VideoUploadForm = () => {
             </FormItem>
           )}
         />
-
-        <div className="w-full mt-3 text-black font-montserrat font-normal flex justify-center  container">
-          <div className="box bg-white p-30 rounded-lg shadow-box-shadow w-full">
-            <h2 className="m-4 header mb-10 text-center  font-medium text-black">
-              {" "}
-              Drop Video File
-            </h2>
-            <div className="text-center pb-10 flex flex-col items-center">
-              <DropFileInput onFileChange={(files) => onFileChange(files)} />
-            </div>
-          </div>
+        <div className="text-center flex flex-col items-center">
+          <DropFileInput onFileChange={(files) => onFileChange(files)} />
         </div>
-        <Button type="submit" variant={"primary"}>
-          Upload Video
+
+        <Button type="submit" disabled={isPending || progress == 100}>
+          Upload Video{" "}
+          {file && progress !== 0 ? `${progress.toFixed(1)} %` : null}
         </Button>
       </form>
     </Form>
