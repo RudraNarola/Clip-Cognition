@@ -1,0 +1,7 @@
+flask
+flask-cors
+requests
+whisper
+moviepy
+google-generativeai
+firebase-admin
