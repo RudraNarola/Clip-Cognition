@@ -1,8 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
-import React from "react";
-import VideoCard from "@/components/VideoCard";
+// import { Button } from "@/components/ui/button";
+// import { ArrowRight } from "lucide-react";
 // import { getRecommendedVideos } from "@/lib/services/recommended.services";
+import VideoCard from "@/components/VideoCard";
 import { getRecommendedVideos } from "@/lib/firebase/recommended.services";
 import Link from "next/link";
 
