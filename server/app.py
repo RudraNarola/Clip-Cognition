@@ -19,8 +19,6 @@ app = Flask(__name__)
 CORS(app)
 
 env = json.load((open('./api.json')))
-print(env)
-
 
 
 @app.route('/getTranscript', methods=['POST'])
