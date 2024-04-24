@@ -1,13 +1,11 @@
+test.py
+
 secret.json
 api.json
+quiz.json
 
 transcript.txt
 
-quiz.json
-
 downloaded_video.mp4
 
-./allaudio/
-
-
-test.py
+allaudio/
