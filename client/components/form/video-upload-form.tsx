@@ -22,6 +22,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { VideoValidation } from "@/lib/validations/video";
 import DropFileInput from "../drop-file-input/DropFileInput";
 import { useTransition } from "react";
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
 interface DocData {
   mostRecentUploadURL: string;
@@ -31,7 +33,8 @@ interface DocData {
 const VideoUploadForm = () => {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
-  const [isPending, setIsPending] = useState(false);
+  // const [isPending, setIsPending] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const sendUrl = async (url: string, title: string, description: string) => {
     try {
@@ -75,32 +78,30 @@ const VideoUploadForm = () => {
   };
 
   const handleClick = (values: z.infer<typeof VideoValidation>) => {
-    setIsPending(true);
-    if (file === null) return;
+    startTransition(() => {
+      if (file === null) return;
 
-    const fileRef = ref(storage, `videos/${file.name}`);
-    const uploadTask = uploadBytesResumable(fileRef, file);
+      const fileRef = ref(storage, `${file.name}`);
+      const uploadTask = uploadBytesResumable(fileRef, file);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        let temp = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(temp);
-        setProgress(temp);
-      },
-      (error) => {
-        console.log("error uploading file", error);
-      },
-      async () => {
-        console.log("success!!");
-        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-        sendUrl(downloadURL, values.title, values.description);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          let temp = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(temp);
+          setProgress(temp);
+        },
+        (error) => {
+          console.log("error uploading file", error);
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          sendUrl(downloadURL, values.title, values.description);
 
-        uploadToDatabase(downloadURL);
-        console.log("AEFAEFAE", downloadURL);
-      }
-    );
-    setIsPending(false);
+          uploadToDatabase(downloadURL);
+        }
+      );
+    });
   };
 
   const form = useForm<z.infer<typeof VideoValidation>>({
@@ -111,6 +112,27 @@ const VideoUploadForm = () => {
       tags: [],
     },
   });
+
+  if (progress === 100) {
+    return (
+      <>
+        <div className="text-2xl text-white flex flex-col justify-center items-center py-32 w-full text-center font-custom">
+          <h1 className="text-4xl mb-4 font-bold">
+            Video Uploaded <span className="text-green-500">Successfully</span>
+          </h1>
+          <h3>
+            Generation of Quiz will depend upon the length of video. Thank You
+            for your patience.
+          </h3>
+          <Link href="/" className="w-full">
+            <Button variant="primary" className="mt-6 w-[20%] ">
+              Go Home
+            </Button>
+          </Link>
+        </div>
+      </>
+    );
+  }
 
   return (
     <Form {...form}>
@@ -159,12 +181,10 @@ const VideoUploadForm = () => {
             </FormItem>
           )}
         />
-        {/* 
-        <div className="w-full mt-3 text-white border border-dark-4 rounded-md bg-dark-3 font-montserrat font-normal flex justify-center items-center "> */}
         <div className="text-center flex flex-col items-center">
           <DropFileInput onFileChange={(files) => onFileChange(files)} />
         </div>
-        {/* </div> */}
+
         <Button type="submit" disabled={isPending || progress == 100}>
           Upload Video{" "}
           {file && progress !== 0 ? `${progress.toFixed(1)} %` : null}
