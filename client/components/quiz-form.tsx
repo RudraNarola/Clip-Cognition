@@ -132,7 +132,7 @@ const QuizForm = ({ quizData }: { quizData: any }) => {
             </p>
             <div className="flex flex-col">
               {question.options.map((option, optionIndex) => (
-                <div className="flex items-center gap-2 ">
+                <div className="flex items-center gap-2 " key={optionIndex}>
                   <input
                     type="radio"
                     value={optionIndex}

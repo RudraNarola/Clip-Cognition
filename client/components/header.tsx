@@ -31,24 +31,24 @@ export default async function Header() {
               <div className="flex items-center gap-10 text-lg">
                 <Link
                   href="/quizes"
-                  className="hover:bg-gray-500/10 px-3 py-1 rounded-md"
+                  className="hover:bg-gray-500/20 px-4 py-1 rounded-md transition-all ease-out duration-300 "
                 >
                   Quiz
                 </Link>
                 <Link
                   href="/leaderboard"
-                  className="hover:bg-gray-500/10 px-3 py-1 rounded-md"
+                  className="hover:bg-gray-500/20 px-4 py-1 rounded-md transition-all ease-out duration-300 "
                 >
                   Leaderboard
                 </Link>
                 <Link
                   href="/upload"
-                  className="hover:bg-gray-500/10 px-3 py-1 rounded-md"
+                  className="hover:bg-gray-500/20 px-4 py-1 rounded-md transition-all ease-out duration-300 "
                 >
                   Upload
                 </Link>
               </div>
-              <div className="flex items-center gap-1 hover:bg-gray-500/10 px-3 py-1 rounded-md">
+              <div className="flex items-center gap-1 hover:bg-gray-500/20 px-4 py-1 rounded-md transition-all ease-out duration-300 ">
                 <Link href="/profile" className="px-3 py-1 rounded-md">
                   {" "}
                   <span className="text-white text-xl font-semibold">

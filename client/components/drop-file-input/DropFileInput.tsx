@@ -7,7 +7,13 @@ import { ImageConfig } from "../../config/ImageConfig";
 import uploadImg from "../../assets/cloud-upload-regular-240.png";
 import Image from "next/image";
 
-const DropFileInput = (props: any) => {
+const DropFileInput = ({
+  onFileChange,
+  isPending,
+}: {
+  onFileChange: (files: File[]) => void;
+  isPending: boolean;
+}) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const [fileList, setFileList] = useState<any[]>([]);
@@ -23,7 +29,7 @@ const DropFileInput = (props: any) => {
     if (newFile) {
       const updatedList = [newFile];
       setFileList(updatedList);
-      props.onFileChange(updatedList);
+      onFileChange(updatedList);
     }
   };
 
@@ -31,7 +37,7 @@ const DropFileInput = (props: any) => {
     const updatedList = [...fileList];
     updatedList.splice(fileList.indexOf(file), 1);
     setFileList(updatedList);
-    props.onFileChange(updatedList);
+    onFileChange(updatedList);
   };
 
   return (
@@ -47,7 +53,12 @@ const DropFileInput = (props: any) => {
           <Image src={uploadImg} alt="" />
           <p className="text-black/70">Drag & Drop your files here</p>
         </div>
-        <input type="file" value="" onChange={onFileDrop} />
+        <input
+          type="file"
+          value=""
+          onChange={onFileDrop}
+          disabled={isPending}
+        />
       </div>
       {fileList.length > 0 ? (
         <div className="drop-file-preview">

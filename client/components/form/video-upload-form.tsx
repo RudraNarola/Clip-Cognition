@@ -21,9 +21,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { VideoValidation } from "@/lib/validations/video";
 import DropFileInput from "../drop-file-input/DropFileInput";
-import { useTransition } from "react";
-import { redirect } from "next/navigation";
 import Link from "next/link";
+import { FaSpinner } from "react-icons/fa";
 
 interface DocData {
   mostRecentUploadURL: string;
@@ -33,8 +32,8 @@ interface DocData {
 const VideoUploadForm = () => {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
-  // const [isPending, setIsPending] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState(false);
 
   const sendUrl = async (url: string, title: string, description: string) => {
     try {
@@ -73,35 +72,44 @@ const VideoUploadForm = () => {
         console.log("successfully updated DB");
       })
       .catch((error) => {
-        console.log("errrror");
+        setError(true);
+        console.log("Error updating DB", error);
       });
+    setIsPending(false);
   };
 
-  const handleClick = (values: z.infer<typeof VideoValidation>) => {
-    startTransition(() => {
-      if (file === null) return;
+  const handleUpload = (values: z.infer<typeof VideoValidation>) => {
+    setIsPending((prev) => true);
 
-      const fileRef = ref(storage, `${file.name}`);
-      const uploadTask = uploadBytesResumable(fileRef, file);
+    if (file === null) return;
 
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          let temp = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(temp);
-          setProgress(temp);
-        },
-        (error) => {
-          console.log("error uploading file", error);
-        },
-        async () => {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          sendUrl(downloadURL, values.title, values.description);
+    const fileRef = ref(storage, `${values.title}`);
+    // Check if file with same name already exists in storage
+    // if (fileRef) {
+    //   form.formState.errors.title.message =
+    //     "File name already exists. Please rename the file and try again.";
+    // }
 
-          uploadToDatabase(downloadURL);
-        }
-      );
-    });
+    const uploadTask = uploadBytesResumable(fileRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        let temp = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(temp);
+        setProgress(temp);
+      },
+      (error) => {
+        setError(true);
+        console.log("error uploading file", error);
+      },
+      async () => {
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        sendUrl(downloadURL, values.title, values.description);
+
+        uploadToDatabase(downloadURL);
+      }
+    );
   };
 
   const form = useForm<z.infer<typeof VideoValidation>>({
@@ -112,6 +120,22 @@ const VideoUploadForm = () => {
       tags: [],
     },
   });
+
+  if (error) {
+    return (
+      <div className="text-2xl text-white flex flex-col justify-center items-center py-32 w-full text-center font-custom">
+        <h1 className="text-4xl mb-4 font-bold">
+          Error <span className="text-red-500">Uploading Video</span>
+        </h1>
+        <h3>Please try again later.</h3>
+        <Link href="/" className="w-full">
+          <Button variant="primary" className="mt-6 w-[20%] ">
+            Go Home
+          </Button>
+        </Link>
+      </div>
+    );
+  }
 
   if (progress === 100) {
     return (
@@ -138,9 +162,10 @@ const VideoUploadForm = () => {
     <Form {...form}>
       <form
         className="flex flex-col  gap-6"
-        onSubmit={form.handleSubmit(handleClick)}
+        onSubmit={form.handleSubmit(handleUpload)}
       >
         <FormField
+          disabled={isPending}
           control={form.control}
           name="title"
           render={({ field }) => (
@@ -151,17 +176,20 @@ const VideoUploadForm = () => {
               <FormControl>
                 <Input
                   type="text"
-                  className="account-form_input no-focus "
+                  className="account-form_input no-focus font-custom"
                   {...field}
                   placeholder="Enter title of video"
                 />
               </FormControl>
               <FormMessage />
+              {/* {form.formState.errors.title?.message} */}
+              {/* </FormMessage> */}
             </FormItem>
           )}
         />
 
         <FormField
+          disabled={isPending}
           control={form.control}
           name="description"
           render={({ field }) => (
@@ -172,7 +200,7 @@ const VideoUploadForm = () => {
               <FormControl>
                 <Textarea
                   rows={6}
-                  className="account-form_input no-focus text-black"
+                  className="account-form_input no-focus font-custom"
                   {...field}
                   placeholder="Enter description of video"
                 />
@@ -182,12 +210,24 @@ const VideoUploadForm = () => {
           )}
         />
         <div className="text-center flex flex-col items-center">
-          <DropFileInput onFileChange={(files) => onFileChange(files)} />
+          <DropFileInput
+            onFileChange={(files) => onFileChange(files)}
+            isPending={isPending}
+          />
         </div>
 
-        <Button type="submit" disabled={isPending || progress == 100}>
-          Upload Video{" "}
-          {file && progress !== 0 ? `${progress.toFixed(1)} %` : null}
+        <Button type="submit" disabled={isPending || !file}>
+          {isPending ? (
+            <>
+              <FaSpinner className="animate-spin mr-2" />
+              <p>Uploading </p>
+              <p className="bold ml-1">{progress.toFixed(1)}</p>
+            </>
+          ) : (
+            "Upload Video"
+          )}
+          {/* Upload Video{" "} */}
+          {/* {file && progress !== 0 ? `${progress.toFixed(1)} %` : null} */}
         </Button>
       </form>
     </Form>
